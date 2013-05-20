@@ -2,12 +2,16 @@
 
 
 class Database_manager{
-	var $name;
+	var $db;
+	var $user;
+	var $password;
+	var $host;
+
 	function Database_manager(){
-		$this->db = '';
-		$this->user='';
-		$this->password='';
-		$this->host='';	
+		$this->db = 'florence';
+		$this->user='root';
+		$this->password='root';
+		$this->host='localhost';	
 	}
 	
 	function Connexion(){
