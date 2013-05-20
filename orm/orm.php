@@ -31,7 +31,7 @@ class Model{
 		$query = "ALTER TABLE ".$this->name." ADD ".$name." varchar(".$size.")";
 		return $query;
 	}
-	function int($name,$label,$label){
+	function int($name,$label){
 		$query = "ALTER TABLE ".$this->name." ADD ".$name." int";
 		return $query;
 	}
