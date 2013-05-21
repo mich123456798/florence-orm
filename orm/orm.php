@@ -51,14 +51,19 @@ class Model{
 		$query = "ALTER TABLE ".$this->name." ADD ".$name." float";
 		return $query;
 	}
-	function files(){
-		return;
+	function files($name,$label){
+		$query = "ALTER TABLE ".$this->name." ADD ".$name." binary";
+		return $query;
 	}
-	function m2o(){
-		return;
+	function m2o($name,$relation,$label){
+		$query = "ALTER TABLE ".$this->name." ADD ".$name." int";
+		"ALTER TABLE $this->name ADD FOREIGN KEY ($name) REFERENCES $relation(id)"
+		return $query;
 	}
-	function o2m(){
-		return;
+	function o2m($name,$relation,$rev_m2o,$label){
+		$query = "ALTER TABLE ".$relation." ADD ".$name." int";
+		"ALTER TABLE relation ADD FOREIGN KEY ($name) REFERENCES $relation(id)"
+		return $query;
 	}
 	function m2m(){
 		return;
