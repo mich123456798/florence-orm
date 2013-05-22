@@ -76,11 +76,11 @@ class Model{
 		return $query;
 	}
 	function m2o($name,$relation,$label){
-		$query = "ALTER TABLE ".$this->model." ADD ".$name." int,FOREIGN KEY (".$name.") REFERENCES ".$relation."(".$id.")";
+		$query = "ALTER TABLE ".$this->model." ADD (".$name." int,FOREIGN KEY (".$name.") REFERENCES ".$relation."(id))";
 		return $query;
 	}
 	function o2m($name,$relation,$rev_m2o,$label){
-		$query = "ALTER TABLE ".$relation." ADD ".$name." int,FOREIGN KEY (".$name.") REFERENCES ".$this->model."(".$id.")";
+		$query = "ALTER TABLE ".$relation." ADD (".$name." int,FOREIGN KEY (".$name.") REFERENCES ".$this->model."(id))";
 		return $query;
 	}
 	function m2m(){

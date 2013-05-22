@@ -5,10 +5,11 @@ include("../../orm/orm.php");
 
 class Users extends Model{
 	function Users(){
-		$this->name = 'users';
+		$this->model = 'Users';
 		$this->fields = array(
 			$this->char('name',50,'Users'),
-			$this->int('number','Number')
+			$this->int('number','Number'),
+			$this->o2m('menu_ids','Menu','user_id','Menu'),
 		);
 		parent::Model();
 	}
@@ -19,11 +20,11 @@ new Users();
 
 class Menu extends Model{
 	function Menu(){
-		$this->name = 'menu';
+		$this->model = 'Menu';
 		$this->fields = array(
 			$this->char('name',50,'Users'),
 			$this->char('path',50,'Path'),
-			$this->m2o('users_id','users','Users')
+			$this->m2o('users_id','Users','Users'),
 		);
 		parent::Model();
 	}
