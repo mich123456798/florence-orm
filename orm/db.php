@@ -15,13 +15,17 @@ class Database_manager{
 	}
 	
 	function Connexion(){
-		mysql_connect($this->host, $this->user,$this->password) or die("erreur de connexion au serveur");
-		mysql_select_db($this->db) or die("erreur de connexion a la base de donnees");
+		try {
+		  return new PDO("mysql:host=".$this->host.";dbname=".$this->db."", $this->user, $this->password);    
+		}  
+		catch(PDOException $e) {  
+		    echo $e->getMessage();  
+		}  
 	}
 
-	function Close_connexion(){
-		mysql_close();
-	}
+	// function Close_connexion(){
+		
+	// }
 }
 
 ?>

@@ -8,6 +8,7 @@ class Users extends Model{
 		$this->model = 'Users';
 		$this->fields = array(
 			$this->char('name',50,'Users'),
+			$this->char('password',50,'Password'),
 			$this->int('number','Number'),
 			$this->o2m('menu_ids','Menu','user_id','Menu'),
 		);
@@ -31,6 +32,30 @@ class Menu extends Model{
 }
 new Menu();
 
+class Group extends Model{
+	function Group(){
+		$this->model = 'group';
+		$this->fields = array(
+			$this->char('name',50,'Group'),
+			$this->char('description',50,'Description'),
+		);
+		parent::Model();
+	}
 
+}
+new Group();
+
+class Access_right extends Model{
+	function Group(){
+		$this->model = 'Access_Right';
+		$this->fields = array(
+			$this->char('name',50,'Group'),
+			$this->char('description',50,'Description'),
+		);
+		parent::Model();
+	}
+
+}
+new Access_right();
 
 ?>
