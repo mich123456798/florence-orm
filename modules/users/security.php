@@ -5,6 +5,10 @@ class Access extends Model{
 		$this->fields = array(
 			$this->char('name',50,'Group'),
 			$this->char('description',50,'Description'),
+			$this->boolean('create_access','Create'),
+			$this->boolean('read_access','Create'),
+			$this->boolean('update_access','Create'),
+			$this->boolean('delete_access','Create'),
 		);
 		parent::Model();
 	}

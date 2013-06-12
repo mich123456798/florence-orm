@@ -72,7 +72,7 @@ class Model{
 	}
 
 	// all the fields
-	function char($name,$size,$label){
+	function char($name,$size,$label,$isnull=NULL){
 		//FUNCTION
 		// function for create a char field in db
 		//ARGS 
@@ -82,7 +82,7 @@ class Model{
 		$query = "ALTER TABLE ".$this->model." ADD ".$name." varchar(".$size.")";
 		return Array('create '.$name,$query);
 	}
-	function int($name,$label){
+	function int($name,$label,$isnull=NULL){
 		//FUNCTION
 		// function for create an integer field in db
 		//ARGS 
@@ -91,47 +91,46 @@ class Model{
 		$query = "ALTER TABLE ".$this->model." ADD ".$name." int";
 		return Array($name,$query);
 	}
-	function datetime($name,$label){
+	function datetime($name,$label,$isnull=NULL){
 		$query = "ALTER TABLE ".$this->model." ADD ".$name." datetime";
 		return Array($name,$query);
 	}
-	function boolean($name,$label){
-		$query = "ALTER TABLE ".$this->model." ADD ".$name." boolean";
+	function boolean($name,$label,$isnull=NULL){
+		$query = "ALTER TABLE ".$this->model." ADD ".$name." tinyint(1)";
 		return Array($name,$query);
 	}
-	function text($name,$label){
+	function text($name,$label,$isnull=NULL){
 		$query = "ALTER TABLE ".$this->model." ADD ".$name." text";
 		return Array($name,$query);
 	}
-	function date($name,$label){
+	function date($name,$label,$isnull=NULL){
 		$query = "ALTER TABLE ".$this->model." ADD ".$name." date";
 		return Array($name,$query);
 	}
-	function time($name,$label){
+	function time($name,$label,$isnull=NULL){
 		$query = "ALTER TABLE ".$this->model." ADD ".$name." time";
 		return Array($name,$query);
 	}
-	function float($name,$label){
+	function float($name,$label,$isnull=NULL){
 		$query = "ALTER TABLE ".$this->model." ADD ".$name." float";
 		return Array($name,$query);
 	}
-	function files($name,$label){
+	function files($name,$label,$isnull=NULL){
 		$query = "ALTER TABLE ".$this->model." ADD ".$name." binary";
 		return Array($name,$query);
 	}
-	function m2o($name,$relation,$label){
+	function m2o($name,$relation,$label,$isnull=NULL){
 		$query = "ALTER TABLE ".$this->model." ADD (".$name." int,FOREIGN KEY (".$name.") REFERENCES ".$relation."(id))";
 		return Array($name,$query);
 	}
-	function o2m($name,$relation,$rev_m2o,$label){
+	function o2m($name,$relation,$rev_m2o,$label,$isnull=NULL){
 		$query = "ALTER TABLE ".$relation." ADD (".$rev_m2o." int,FOREIGN KEY (".$rev_m2o.") REFERENCES ".$this->model."(id))";
 		return Array($name,$query);
 	}
 	function m2m($name,$relation,$name_table=""){
-		if (isset ($name_table)){
+		if (!isset ($name_table)){
 			$name_table = $this->model+"_"+$relation;
 		}
-
 		$query="CREATE TABLE ".$name_table."(
 				first_id int,
 				second_id int,

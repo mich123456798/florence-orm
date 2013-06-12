@@ -28,4 +28,11 @@ class Database_manager{
 	// }
 }
 
+
+class Set_new_db{
+	function Set_new_db($db){
+		//create empty db
+		return;
+	}
+}
 ?>
