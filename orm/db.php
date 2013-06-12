@@ -10,7 +10,7 @@ class Database_manager{
 	function Database_manager(){
 		$this->db = 'florence';
 		$this->user='root';
-		$this->password='steroids';
+		$this->password='root';
 		$this->host='localhost';	
 	}
 	

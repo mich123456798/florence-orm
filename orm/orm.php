@@ -4,31 +4,42 @@ include("db.php");
 class Model{
 	var $model = null;
 	var $fields = array();
-	var $name = null;
+	var $rec_name = 'name';
 
 	function Model(){
-		$this->Create_table();
-	}
-
-	function Create_table(){
 		$db = new Database_manager();
 		$db = $db->Connexion();
-		$query = " CREATE TABLE ".$this->model." (id int NOT NULL AUTO_INCREMENT PRIMARY KEY )";
-		$prep = $db->prepare($query);
-		$prep->execute();
+		$this->Create_table($db);
+	}
 
-
-		echo 'create table -->'.$this->model.'<br/>';
+	function Create_table($db){
+		try{
+			$query = " CREATE TABLE ".$this->model." (id int NOT NULL AUTO_INCREMENT PRIMARY KEY,".$this->rec_name." varchar(64))";
+			$prep = $db->prepare($query);
+			$prep->execute();
+			echo 'create table -->'.$this->model.'<br/>';
+		}
+		catch (Exception $e) {
+ 			echo 'Error : ',  $e->getMessage(), "<br/>";
+		}
 
 		foreach ($this->fields as $field){
-			$prep_cret = $db->prepare($field);
-			$prep_cret->execute();
+			try{
+				echo 'create fields -->'.$field[0].'<br/>';
+				$prep_cret = $db->prepare($field[1]);
+				$prep_cret->execute();
+			}
+			catch (Exception $e) {
+ 				echo 'Error : ',  $e->getMessage(), "<br/>";
+			}
 		}
 		// $db->Close_connexion();
 	}
 	// function for the orm
 	function get_name($model){
-		$requete = "SELECT name from ".$model."";
+		$requete = "SELECT ".$this->rec_name." from ".$model."";
+		$prep = $db->prepare($query);
+		$prep->execute();
 		return;
 	}
 	function search(){
@@ -69,7 +80,7 @@ class Model{
 		//size: is the size in db for a char
 		//label is the name in the view
 		$query = "ALTER TABLE ".$this->model." ADD ".$name." varchar(".$size.")";
-		return $query;
+		return Array('create '.$name,$query);
 	}
 	function int($name,$label){
 		//FUNCTION
@@ -78,40 +89,56 @@ class Model{
 		//name: is the technical name of the table
 		//label is the name in the view
 		$query = "ALTER TABLE ".$this->model." ADD ".$name." int";
-		return $query;
+		return Array($name,$query);
 	}
 	function datetime($name,$label){
 		$query = "ALTER TABLE ".$this->model." ADD ".$name." datetime";
-		return $query;
+		return Array($name,$query);
+	}
+	function boolean($name,$label){
+		$query = "ALTER TABLE ".$this->model." ADD ".$name." boolean";
+		return Array($name,$query);
+	}
+	function text($name,$label){
+		$query = "ALTER TABLE ".$this->model." ADD ".$name." text";
+		return Array($name,$query);
 	}
 	function date($name,$label){
 		$query = "ALTER TABLE ".$this->model." ADD ".$name." date";
-		return $query;
+		return Array($name,$query);
 	}
 	function time($name,$label){
 		$query = "ALTER TABLE ".$this->model." ADD ".$name." time";
-		return $query;
+		return Array($name,$query);
 	}
 	function float($name,$label){
 		$query = "ALTER TABLE ".$this->model." ADD ".$name." float";
-		return $query;
+		return Array($name,$query);
 	}
 	function files($name,$label){
 		$query = "ALTER TABLE ".$this->model." ADD ".$name." binary";
-		return $query;
+		return Array($name,$query);
 	}
 	function m2o($name,$relation,$label){
 		$query = "ALTER TABLE ".$this->model." ADD (".$name." int,FOREIGN KEY (".$name.") REFERENCES ".$relation."(id))";
-		return $query;
+		return Array($name,$query);
 	}
 	function o2m($name,$relation,$rev_m2o,$label){
-		$query = "ALTER TABLE ".$relation." ADD (".$name." int,FOREIGN KEY (".$name.") REFERENCES ".$this->model."(id))";
-		return $query;
+		$query = "ALTER TABLE ".$relation." ADD (".$rev_m2o." int,FOREIGN KEY (".$rev_m2o.") REFERENCES ".$this->model."(id))";
+		return Array($name,$query);
 	}
 	function m2m($name,$relation,$name_table=""){
-		// if $name_table
-		$query="CREATE TABLE ";
-		return;
+		if (isset ($name_table)){
+			$name_table = $this->model+"_"+$relation;
+		}
+
+		$query="CREATE TABLE ".$name_table."(
+				first_id int,
+				second_id int,
+				FOREIGN KEY (first_id) REFERENCES ".$this->model."(id),
+				FOREIGN KEY (second_id) REFERENCES ".$relation."(id)
+		)";
+		return Array($name,$query);
 	}
 
 }

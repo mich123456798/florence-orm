@@ -1,5 +1,4 @@
 <?php
-
 class Access extends Model{
 	function Access(){
 		$this->model = 'Access';
@@ -9,8 +8,6 @@ class Access extends Model{
 		);
 		parent::Model();
 	}
-
 }
 new Access();
-
 ?>

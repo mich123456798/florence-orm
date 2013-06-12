@@ -8,8 +8,6 @@ class Fields extends Model{
 		);
 		parent::Model();
 	}
-
 }
 new Fields();
-
 ?>

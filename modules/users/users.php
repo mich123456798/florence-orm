@@ -2,11 +2,12 @@
 class Users extends Model{
 	function Users(){
 		$this->model = 'Users';
+		$this->rec_name='test';
 		$this->fields = array(
 			$this->char('name',50,'Users'),
 			$this->char('password',50,'Password'),
-			$this->int('number','Number'),
-			$this->o2m('menu_ids','Menu','user_id','Menu'),
+			$this->int('numbers','Numbers'),
+			$this->o2m('menu_ids','Menu','users_id','Menu'),
 		);
 		parent::Model();
 	}
@@ -19,6 +20,7 @@ class Groups extends Model{
 		$this->fields = array(
 			$this->char('name',50,'Group'),
 			$this->char('description',50,'Description'),
+			$this->m2m('users_ids',"Users","Group_Users")
 		);
 		parent::Model();
 	}
