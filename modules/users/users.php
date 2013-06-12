@@ -1,8 +1,4 @@
 <?php
-include("../../orm/config.php");
-include("../../orm/orm.php");
-
-
 class Users extends Model{
 	function Users(){
 		$this->model = 'Users';
@@ -17,7 +13,17 @@ class Users extends Model{
 }
 new Users();
 
-
+class Groups extends Model{
+	function Groups(){
+		$this->model = 'Groups';
+		$this->fields = array(
+			$this->char('name',50,'Group'),
+			$this->char('description',50,'Description'),
+		);
+		parent::Model();
+	}
+}
+new Groups();
 
 class Menu extends Model{
 	function Menu(){
@@ -31,31 +37,5 @@ class Menu extends Model{
 	}
 }
 new Menu();
-
-class Group extends Model{
-	function Group(){
-		$this->model = 'group';
-		$this->fields = array(
-			$this->char('name',50,'Group'),
-			$this->char('description',50,'Description'),
-		);
-		parent::Model();
-	}
-
-}
-new Group();
-
-class Access_right extends Model{
-	function Group(){
-		$this->model = 'Access_Right';
-		$this->fields = array(
-			$this->char('name',50,'Group'),
-			$this->char('description',50,'Description'),
-		);
-		parent::Model();
-	}
-
-}
-new Access_right();
 
 ?>

@@ -1,7 +1,6 @@
 <?php
 include("db.php");
 
-
 class Model{
 	var $model = null;
 	var $fields = array();
@@ -15,7 +14,6 @@ class Model{
 		$db = new Database_manager();
 		$db = $db->Connexion();
 		$query = " CREATE TABLE ".$this->model." (id int NOT NULL AUTO_INCREMENT PRIMARY KEY )";
-		echo $query;
 		$prep = $db->prepare($query);
 		$prep->execute();
 
@@ -23,11 +21,9 @@ class Model{
 		echo 'create table -->'.$this->model.'<br/>';
 
 		foreach ($this->fields as $field){
-			echo $field;
 			$prep_cret = $db->prepare($field);
 			$prep_cret->execute();
 		}
-		$prep_cret->commit();
 		// $db->Close_connexion();
 	}
 	// function for the orm
