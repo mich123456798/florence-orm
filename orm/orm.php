@@ -10,6 +10,7 @@ class Model{
 		$db = new Database_manager();
 		$db = $db->Connexion();
 		$this->Create_table($db);
+		return $db;
 	}
 
 	function Create_table($db){
@@ -53,22 +54,30 @@ class Model{
 		//return dataset
 		return;
 	}
-	function insert($uid,$vals){
-		//vals is an array the key is the name of a columns in and the value is the value of the new records
-		$insertStatement = $pdo->prepare('insert into mytable (name, age) values (:name, :age)');
-		$pdo->beginTransaction();
-		foreach($data as &$row) {
-		  $pdo->execute($row);
-		}
-		$pdo->commit();
+	function insert($uid,$db,$vals){
+		//vals is an array the key is the name of a columns in and the value is the value of the new records	
+		$keys = array_keys($vals);
+		
+		$comma_separated = implode(",", $keys);
+		$without_columns = str_replace( ":", "",$comma_separated);
+
+		$prep = $db->prepare('insert into '.$this->model.' ('.$without_columns.') values ('.$comma_separated.')');
+		$db->beginTransaction();
+		$prep->execute($vals);
+		$id =$db->commit();
+		return $id;
 	}
-	function update($uid,$ids,$vals){
-		$insertStatement = $pdo->prepare('update set mytable (name, age) values (:name, :age)');
-		$pdo->beginTransaction();
-		foreach($data as &$row) {
-		  $pdo->execute($row);
-		}
-		$pdo->commit();
+	function update($uid,$db,$ids,$vals){
+		$ids = "(".implode(",", $ids).")";
+		$keys = array_keys($vals);
+		$values = array_values($vals);
+		
+		$comma_separated = implode(" = ?,", $keys);
+		$comma_separated =$comma_separated .' = ?';
+		$prep = $db->prepare('update '.$this->model.' set '.$comma_separated.' where id in '.$ids);
+		$db->beginTransaction();
+		$prep->execute($values);
+		$db->commit();
 	}
 
 	// all the fields

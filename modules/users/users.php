@@ -9,8 +9,12 @@ class Users extends Model{
 			$this->int('numbers','Numbers'),
 			$this->o2m('menu_ids','Menu','users_id','Menu'),
 		);
-		parent::Model();
+		$db = parent::Model();
+
+	$this->insert(1,$db,array(':name'=>'teteee',':password'=>'teeee'));
+	$this->update(1,$db,array(1,2),array('name'=>'mich','password'=>'teeee'));
 	}
+
 }
 new Users();
 
