@@ -10,11 +10,14 @@ class Users extends Model{
 			$this->o2m('menu_ids','Menu','users_id','Menu'),
 		);
 		$db = parent::Model();
-
-	$this->insert(1,$db,array(':name'=>'teteee',':password'=>'teeee'));
-	$this->update(1,$db,array(1,2),array('name'=>'mich','password'=>'teeee'));
+	// test function 
+	// $this->insert(1,$db,array(':name'=>'teteee',':password'=>'teeee'));
+	// $this->update(1,$db,array(1,2),array('name'=>'mich','password'=>'teeee'));
+	// $names = $this->get_name(1,$db);
+	// print_r($names);
+	// $test = $this->browse(1,$db,array(1,2,3));
+	// print_r($test);
 	}
-
 }
 new Users();
 
