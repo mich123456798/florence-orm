@@ -20,11 +20,11 @@ class Model{
 			$prep = $db->prepare($query);
 			$test_model = $prep->execute();
 			if (($this->model != 'Models') AND ($test_model ==1)){
-				$this->pooler('Models')->insert(1,$db,array(':name'=>$this->model));
+				$model_id = $this->pooler('Models')->insert(1,$db,array(':name'=>$this->model));
 				echo '<h2>create table -->'.$this->model.'</h2>';
 			}
 			if(($this->model == 'Models') AND ($test_model ==1)){
-				$this->insert(1,$db,array(':name'=>$this->model));
+				$model_id =$this->insert(1,$db,array(':name'=>$this->model));
 				echo '<h2>create table -->'.$this->model.'</h2>';
 			}
 		}
@@ -38,11 +38,11 @@ class Model{
 				$test_field = $prep_cret->execute();
 
 				if (($this->model != 'Fields') AND ($test_field ==1)){
-					$this->pooler('Fields')->insert(1,$db,array(':name'=>$field[0],':type'=>$field[2],':model_id'=>$this->model));
+					$this->pooler('Fields')->insert(1,$db,array(':name'=>$field[0],':type'=>$field[2],':model_id'=>$model_id));
 					echo 'create fields -->'.$field[0].' in the table '.$this->model.'<br/>';
 				}
 				if (($this->model == 'Fields') AND ($test_field ==1)){
-					$this->insert(1,$db,array(':name'=>$field[0],':type'=>$field[2],':model_id'=>$this->model));
+					$this->insert(1,$db,array(':name'=>$field[0],':type'=>$field[2],':model_id'=>$model_id));
 					echo 'create fields -->'.$field[0].' in the table '.$this->model.'<br/>';
 				}
 			}
@@ -52,10 +52,16 @@ class Model{
 		}
 		// $db->Close_connexion();
 	}
+	
 	// function for the orm
 	function pooler($model){
 		return New $model();
 	}
+
+	function get_id($uid,$db){
+		return;
+	}
+
 	function get_name($uid,$db){
 		$names = array();
 		$requete = "SELECT ".$this->rec_name." from ".$this->model;

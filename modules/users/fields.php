@@ -1,16 +1,5 @@
 <?php
 
-class Testee extends Model{
-	function Testee(){
-		$this->model = 'Testee';
-		$this->fields = array(
-			$this->char('name',50,'Model','NOT NULL'),
-			$this->char('description',50,'Description'),
-		);
-		parent::Model();
-	}
-}
-new Testee();
 class Models extends Model{
 	function Models(){
 		$this->model = 'Models';
