@@ -27,12 +27,40 @@
       </div>
     </div>
 
-    <div class="container">
 
-      <h1>Welcom in the Florence ORM</h1>
-      <p>Click on the menu module pooler to setup all your modules</p>
+<div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Sidebar</li>
+              <li class="active"><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li class="nav-header">Sidebar</li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li class="nav-header">Sidebar</li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
 
-    </div> <!-- /container -->
+      <span class="span9">
+        <div class="container">
+
+        <h1>Welcom in the Florence ORM</h1>
+        <p>Click on the menu module pooler to setup all your modules</p>
+
+      </div> <!-- /container -->
+    <div/>
 	</body>
 
 
